@@ -1,0 +1,422 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>LAHax</title>
+		<script src='jquery.js'></script>
+		
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
+		<script src='myo.js'></script>
+		
+		
+		<script>
+		var key="c27ea84b-9fc0-4098-bb76-53c71ab15eb3";
+		//https://graph.api.smartthings.com/api/smartapps/installations/c27ea84b-9fc0-4098-bb76-53c71ab15eb3
+		function SwitchControl(sw) {
+		
+			//private
+			var current_switch = 1;
+		    if (typeof sw == "undefined")
+				sw = [];
+				
+			var switches = sw;
+			
+			
+			for (i in switches)
+			{
+				$("#switches").append("<div class='box' id="+i+">"+i+"</div>");
+				if (switches[i].state == "on")
+					$("#"+i).addClass("on");
+			}
+			
+
+			setInterval(function() {
+				var id="#"+current_switch;
+				if (!$(id).hasClass("selected"))
+					$(id).addClass("selected");
+				
+			}, 1000/30);
+			
+			
+			//functions
+			 this.getCurrentSwitch = function() {
+				return switches[current_switch];
+			}
+			
+			this.selectNext = function() {
+				$("#"+current_switch).removeClass("selected");
+				//alert("YO");
+				if (++current_switch >= switches.length) current_switch = 0;
+			}
+			
+			this.selectPrev = function() {
+				$("#"+current_switch).removeClass("selected");
+				//alert("YO");
+				if (--current_switch < 0 && switches.length != 0) current_switch = switches.length-1;
+			}
+			
+			this.lock = function() {
+				//switch off
+				switchOff(switches[current_switch].id)
+				
+				switches[current_switch].state = "off";
+				$("#"+current_switch).removeClass("on");
+				
+			
+			}
+			
+			this.unlock = function() {
+				
+				//switch on
+				switchOn(switches[current_switch].id);
+				
+				switches[current_switch].state = "on";
+				$("#"+current_switch).addClass("on");
+
+			}
+			
+			
+			
+		
+		}
+		
+		function switchToggle(switch_id, func) {
+                                       
+                                        var command_object = {"command" : "toggle"};
+                                       
+                                        $.ajax({
+                                                url: 'https://graph.api.smartthings.com/api/smartapps/installations/'+key+'/switches/'+switch_id,
+                                                type: 'PUT',
+                                                contentType: 'application/json',
+                                                data: JSON.stringify(command_object),
+                                                success: function (response) {
+                                                	func();
+                                                }
+                                        });
+                               
+                                }
+                                
+		function switchOff(switch_id) {
+                                       
+                                        var command_object = {"command" : "toggle"};
+                                       
+                                        $.ajax({
+                                                url: 'https://graph.api.smartthings.com/api/smartapps/installations/'+key+'/switches/'+switch_id+'/off',
+                                                type: 'PUT',
+                                                success: function (response) {
+                                                }
+                                        });
+                               
+                                }
+		function switchOn(switch_id) {
+                                       
+                                        var command_object = {"command" : "toggle"};
+                                       
+                                        $.ajax({
+                                                url: 'https://graph.api.smartthings.com/api/smartapps/installations/'+key+'/switches/'+switch_id+'/on',
+                                                type: 'PUT',
+                                                success: function (response) {
+                                                }
+                                        });
+                               
+                                }
+		
+		
+		var control; //global variables - stores our Switch Control
+
+		
+		$(document).ready(function() {
+                               
+                               
+                               var local_switches=[];
+                               var x=0;
+                               
+                               //GET SWITCHES
+                                $.get("https://graph.api.smartthings.com/api/smartapps/installations/"+key+"/switches", function(data) {
+                                        console.log("DATA:" + data);
+                                        var switches = data;
+                                        for (i in switches)
+                                        {
+                                        	var s=switches[i].split("||");
+                                        	local_switches[x++] = {"state":s[1], "id":s[0]};
+                                                //switchOn(switches[i]);
+                                        }
+                                        
+                                        control = new SwitchControl(local_switches); //create a switch control
+                                        console.log(control.getCurrentSwitch());
+                                       // switchOn(data);
+                                });
+                                
+                                var local_sensors=[];
+                                var y=0;
+                                /*
+                                //GET SWITCHES
+                                $.get("https://graph.api.smartthings.com/api/smartapps/installations/95c4107a-4b99-4952-a0b1-c430f34810c2/sensors", function(data) {
+                                        console.log(data);
+                                        var switches = data;
+                                        for (i in switches)
+                                        {
+                                        	var s=switches[i].split("||");
+                                        	local_switches[x++] = {"state":s[1], "id":s[0]};
+                                                //switchOn(switches[i]);
+                                        }
+                                        
+                                        control = new SwitchControl(local_switches); //create a switch control
+                                        console.log(control.getCurrentSwitch());
+                                       // switchOn(data);
+                                });
+                                */
+                               
+                                
+                               
+                       
+                        });
+		
+		
+		</script>
+		
+	<style>
+		#log{
+			height : 50px;
+			width : 50px;
+			background-color: red;
+
+		}
+		
+		#rectangle {
+		
+			height:100px;
+			width:30px;
+			background-color:black;
+			border:1px solid #333;
+		
+		}
+		
+		.box {
+			margin:5px;
+			display:inline-block;
+			width:50px;
+			height:50px;
+			background-color:#999;
+			padding:30px;
+			text-align:center;
+			
+		
+		}
+		
+		.on {
+		
+			background-color:#0fa;
+		
+		}
+		
+		.selected {
+		
+			border:3px solid black;
+		}
+		
+	</style>
+		
+	</head>
+	<body>
+<!--
+		<div id='log'>
+
+		</div>
+		-->
+		
+		<section id = "switches">
+			
+		</section>
+		
+		
+		
+		
+		<section id="information">
+			<b>Gyroscope</b>
+			<table>
+				<tr><td>X</td><td id="gx"></td></tr>
+				<tr><td>Y</td><td id="gy"></td></tr>
+				<tr><td>Z</td><td id="gz"></td></tr>
+				<tr><th>Roll</th><td id="roll"></td></tr>
+			</table>
+			
+		</section>
+		
+		
+		<section id ="text" style='width:200px; height:150px;overflow:auto;'>
+		
+		</section>
+		
+		
+		<div id="rectangle">
+		
+		</div>
+
+	</body>
+
+<script>
+
+		//FOR ROTATING/turning
+		var fist_mode = false;
+		var start_roll = 0;//roll recorded when fist mode went to true
+		var last_roll = 0;
+		
+		var orig_height = 100;
+		var max_delta = 3.6;
+		
+		
+		var log = document.getElementById('log')
+
+		var myo = Myo.create(0);
+		
+		var gyroscope = {
+			x: 0,
+			y: 0,
+			z: 0
+		};
+		myo.on('pose', function(poseName){
+			//console.log(poseName);
+			//alert(poseName);
+		})
+
+		myo.on('arm_recognized', function(){
+			console.log('good!', this.id);
+		})
+
+		myo.on('arm_lost', function(){
+			//console.log('bad', this.id);
+		})
+
+
+		myo.on('wave_in', function(edge){
+		
+			if (edge) {
+				myo.unlock(10000);
+				control.selectPrev();
+			}
+			
+			//console.log('wave Left!');
+		})
+		
+		myo.on('wave_out', function(edge) {
+			
+			if (edge) {
+				myo.unlock(10000);
+				control.selectNext();
+			}
+
+		});
+		
+		myo.on('fingers_spread', function(edge) {
+		
+			if (edge) {
+				control.unlock();
+			}
+		});
+		
+		myo.on('fist', function(edge){
+		//	console.log('BT PLZ');
+		if (edge) {
+	
+			control.lock(); // lock the switch control
+			myo.unlock(10000);
+
+			
+			if (!fist_mode) {
+			//set fist mode
+				fist_mode = true;
+				start_roll = last_roll;
+			}
+			
+			//alert("STARTED FIST");
+		}
+		else	{
+			fist_mode = false;
+			start_roll =0;
+		//	orig_height = $("#rectangle").height();
+			//myo.vibrate();
+			//alert("ENDED FIST");
+		}
+		
+			//myo.requestBluetoothStrength();
+		})
+
+		myo.on('connected', function(){
+			setInterval(function(){
+				myo.requestBluetoothStrength();
+			}, 100);
+		})
+
+		myo.on('bluetooth_strength', function(BTS){
+			var width = ((BTS * -1 - 40 ) / 50 ) * 100  + '%';
+			$('#log').width(width);
+			//console.log(width);
+		})
+
+		myo.on('double_tap', function(){
+			myo.unlock(10000);
+
+			this.zeroOrientation();
+			//console.log('double tap') ;
+		});
+
+		myo.on('gyroscope', function(data){
+			gyroscope.x = data.x;
+			gyroscope.y = data.y;
+			gyroscope.z = data.z;
+			
+			
+			$("#gx").html(data.x);
+			$("#gy").html(data.y);
+			$("#gz").html(data.z);
+			
+			
+
+		});
+		
+		myo.on('orientation', function(data) {
+			//console.log(data);
+			var x = data.x;
+			var y = data.y;
+			var z = data.z;	
+			var w = data.w;	   
+			
+			 
+			roll = Math.atan2(2.0 * (w * x + y * z),1.0 - 2.0 * (x * x + y * y));
+			last_roll = roll;
+			
+			
+			delta = roll - start_roll;
+			if (fist_mode && Math.abs(delta)>0.1) {
+				var dir = delta > 0 ? "left" : "right";
+				
+				if (Math.abs(delta) > 0.8) {
+					dir +="<br><b>DAAAAMN that's a lot</b>";
+				}
+				$("#text").html("Turning "+dir);
+				
+				
+				var absolute_delta = Math.abs(delta);
+				
+				var percent = -delta*1.5/max_delta;
+				
+				$("#rectangle").height(orig_height-orig_height*percent);
+
+
+			}
+			
+			//roll = ((roll + Math.PI)/(Math.PI * 2.0) * 18); //going from 0 to 17 - based on the C++ version
+			$("#roll").html("Delta: "+delta);
+
+		
+		});
+
+
+
+
+
+	</script>
+	
+	
+	
+</html>

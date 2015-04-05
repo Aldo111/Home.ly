@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+
+<html>
+
+
+	<head>
+		
+		
+		<title>Home.ly</title>
+		<link rel="stylesheet" href="style.css">
+		
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
+		<script src="jquery.js"></script>
+		<script src="key.js"></script>
+		<script src="myo.js"></script>
+		<script src="MenuControl.js"></script>
+		<script src="helpers.js"></script>
+		
+		<!--individual pages helpers-->
+		
+		<script src="getSwitches.js"></script>
+		<script src="getModes.js"></script>
+		
+		
+		
+		<script>
+//initialize things
+
+			var inPage=false;
+			var current_page="";
+			
+			$(document).ready(function() {
+
+        		
+        		orig_angle = -180;
+        	
+        		menuControl = new MenuControl(menus);
+        		modeControl = new ModeControl(modes);
+
+        		//get data
+        		
+        		getSwitches();
+        		        		
+			
+			});
+			
+			
+			function hidePage() {
+				//this function will hide a page
+				
+				$("#page_"+current_page).hide(500);
+				current_page="";
+				$(".panels").show(500);
+				inPage=false;
+			
+			}
+			
+			function showPage(page) {
+				inPage=true;
+				current_page = page;
+				//this function will hide a page
+				$(".panels").hide(500);
+				$("#page_"+page).show(500);
+				
+				
+				
+				
+				
+			
+			}
+		
+		</script>
+		
+		<style>
+		
+
+		</style>
+		
+		
+		
+	</head>
+	
+	
+	<body>
+	
+	
+		<header>
+		
+			<h2>Home<green>.ly</green></h2>
+			
+		</header>
+		
+		<section class='panels'>
+		<!--
+			<section class="panel" id="sensors">
+			<h3>Sensors</h3>
+			</section>
+		
+			<section class="panel">
+			<h3>Switches/Locks</h3>
+
+			</section>
+		
+			<section class="panel">
+			<h3>Lights</h3>
+
+			</section>
+		-->
+		</section>
+		
+		
+		<section class="page" id="page_switches">
+			<h2>Switches</h2>
+			<p>Control all your switches from this hub by waving left and right to select a switch, and closing your fist to switch it off, and releasing to switch it on!</p>
+			<div id="switches"></div>
+		</section>
+		
+		<section class="page" id="page_modes">
+			<h2>Modes</h2>
+			<p>Select between different modes to apply to your house!</p>
+			<div id="modes"></div>
+		</section>
+		
+		
+		
+		
+		
+		
+		<footer>
+			Adarsh Sinha & Anant Mahajan @ 2015 - LA Hacks!
+		</footer>
+		
+		
+		<!--<div id="log"></div>-->
+	
+	
+	
+	</body>
+	
+	
+	<script src="MyoControl.js"></script>
+	
+	
+</html>

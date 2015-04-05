@@ -1,0 +1,169 @@
+			* {
+				margin: 0;
+				padding:0;
+			
+			}
+		
+		
+			body {
+				font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+				background-color: white;/*#282828; /*#59c;*/
+				
+			
+			}
+			html{
+				position:relative;
+				min-height:100%;
+				
+			}
+			
+			body {
+				margin-bottom:40px;
+			}
+			
+			header {
+				height:40px;
+				background-color:#222;
+				padding:40px;
+			
+			}
+			
+			header h2 {
+			
+				color:white;
+				text-align:center;
+				font-size:30pt;
+			
+			}
+			h2 {
+				text-align:center;
+			}
+			green {
+			
+				color: #0df;
+				font-size:23pt;
+			}
+			
+			
+			.panel {
+				position:relative;
+				height:200px;
+				width:200px;
+				background-color:#555;
+				padding:5px;
+				margin:10px;
+				display:inline-block;
+				overflow:none;
+				border-radius:100px;
+			}
+			
+			.panel h3 {
+			
+				background-color:black;/*#8ac724*/
+				color:#fff;
+				margin:-5px;
+				border-radius:100px;
+				margin-top:85px;
+			
+			}
+			
+			/*for panel h3*/
+			
+			.selected_panel {
+				background-color:#0af;
+				
+			}
+			
+			.selected_panel_complete {
+			
+				background-color:#8ac724;
+			
+			}
+			
+			.selected_panel h3 {
+				background-color:white;
+				color:black;
+			}
+			
+			.panels {
+				margin:0 auto;
+				width:80%;
+				overflow:hidden;
+				text-align:center;
+				margin-top:7.5%;
+			
+			}
+			
+			
+			/*PAGES*/
+			
+			.page {
+			
+				background-color:#efefef;
+				padding:10px;
+				display:none;
+			
+			}
+			
+			.page h2 {
+				
+				color:black;
+			
+			}
+			
+			.page h2+p { /*adjacent p is the description for this page*/
+				text-align:center;
+				color:#444;
+			
+			}
+			
+			
+			.page #switches, .page #modes {
+				text-align:center;
+			}
+			
+			
+			/*SWITCHES*/
+			.box {
+				margin:5px;
+				display:inline-block;
+				width:90px;
+				height:90px;
+				background-color:#999;
+				padding:10px;
+				text-align:center;
+				overflow:hidden;
+				text-align:left;
+				font-size:8pt;
+			
+		
+			}
+		
+			.on {
+		
+				background-color:#0fa;
+		
+			}
+		
+			.selected {
+		
+				border:2px solid black;
+				width:88px;
+				height:88px;
+			}
+		
+		/*END SWITCHES*/
+			
+			footer {
+				position:absolute;
+				left:0;
+				right:0;
+				bottom:0;
+				height:35px;
+				opacity:0.9;
+				background-color:black;
+				color:#ccc;
+				text-align:center;
+				padding-top:5px;
+				
+			}
