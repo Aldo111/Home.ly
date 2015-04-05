@@ -1,14 +1,15 @@
 			* {
 				margin: 0;
 				padding:0;
-			
+				
 			}
 		
 		
 			body {
 				font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 				background-color: white;/*#282828; /*#59c;*/
-				
+				background:url("wallpaper.jpg");
+				background-size:cover;
 			
 			}
 			html{
@@ -23,8 +24,9 @@
 			
 			header {
 				height:40px;
-				background-color:#222;
+				background-color:#111;
 				padding:40px;
+				opacity:0.9;
 			
 			}
 			
@@ -35,6 +37,8 @@
 				font-size:30pt;
 			
 			}
+			
+			
 			h2 {
 				text-align:center;
 			}
@@ -42,6 +46,29 @@
 			
 				color: #0df;
 				font-size:23pt;
+			}
+			
+			blue {
+				color:black;
+			}	
+			
+			
+			.info {
+				position:absolute;
+				right:0;
+				float:right;
+				background-color:white;
+				opacity:0.7;
+				font-size:10pt;
+				padding:5px;
+				border-radius:10px;
+				margin-top:5px;
+				margin-right:5px;
+			
+			}
+			.info red {
+				color :#0af;
+				font-weight:bold;
 			}
 			
 			
@@ -55,6 +82,7 @@
 				display:inline-block;
 				overflow:none;
 				border-radius:100px;
+				opacity:0.9;
 			}
 			
 			.panel h3 {
@@ -90,7 +118,7 @@
 				width:80%;
 				overflow:hidden;
 				text-align:center;
-				margin-top:7.5%;
+				margin-top:9%;
 			
 			}
 			
@@ -98,10 +126,12 @@
 			/*PAGES*/
 			
 			.page {
-			
+				margin-top:9%;
+				position:relative;
 				background-color:#efefef;
 				padding:10px;
 				display:none;
+				opacity:0.9;
 			
 			}
 			
@@ -127,14 +157,16 @@
 			.box {
 				margin:5px;
 				display:inline-block;
-				width:90px;
-				height:90px;
+				width:120px;
+				height:120px;
 				background-color:#999;
 				padding:10px;
 				text-align:center;
 				overflow:hidden;
 				text-align:left;
-				font-size:8pt;
+				font-size:11pt;
+				font-weight:bold;
+				
 			
 		
 			}
@@ -148,8 +180,8 @@
 			.selected {
 		
 				border:2px solid black;
-				width:88px;
-				height:88px;
+				width:118px;
+				height:118px;
 			}
 		
 		/*END SWITCHES*/
@@ -160,9 +192,9 @@
 				right:0;
 				bottom:0;
 				height:35px;
-				opacity:0.9;
-				background-color:black;
-				color:#ccc;
+				opacity:0.7;
+				background-color:white;
+				color:#999;
 				text-align:center;
 				padding-top:5px;
 				
